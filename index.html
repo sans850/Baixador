@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#101322">
+<title>Downly Pro — Downloader</title>
+<style>
+:root{--bg:#0d1020;--panel:#171b2e;--text:#f5f7ff;--muted:#9ba5c2;--accent:#7c5cff;--cyan:#36d6c5;--line:#2b3350}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0%,#28204d 0,transparent 42%),radial-gradient(ellipse at 90% 20%,#123b49 0,transparent 35%),var(--bg);font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);padding:24px 14px}
+.wrap{max-width:850px;margin:auto}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}.brand{display:flex;align-items:center;gap:11px;font-size:21px;font-weight:800}.logo{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--cyan));display:grid;place-items:center;font-size:23px}.tag{font-size:11px;color:#b9c1dc;border:1px solid var(--line);padding:8px 11px;border-radius:99px}
+.hero{text-align:center;margin-bottom:27px}.hero h1{font-size:clamp(30px,6vw,48px);letter-spacing:-1.7px;line-height:1.1;margin:0 0 12px}.hero h1 span{background:linear-gradient(90deg,#a995ff,#4ce1d1);background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:15px;line-height:1.6;max-width:600px;margin:auto}
+.card{background:linear-gradient(145deg,#1b2035f5,#14192af5);border:1px solid #343c5b;border-radius:23px;padding:clamp(18px,4vw,30px);box-shadow:0 24px 70px #0005}.label{display:block;font-size:13px;font-weight:700;color:#d7dcf0;margin:0 0 10px}.urlbox{display:flex;gap:9px;background:#0f1425;border:1px solid #394261;border-radius:14px;padding:8px}.urlbox:focus-within{border-color:#9b88ff;box-shadow:0 0 0 3px #7c5cff22}.urlbox input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:white;padding:10px;font-size:14px}.urlbox input::placeholder{color:#77819e}.paste{border:0;border-radius:10px;padding:0 14px;background:#2b3150;color:#dfe3f6;font-weight:700;cursor:pointer}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:19px}.field select{width:100%;padding:13px;border:1px solid #394261;border-radius:12px;background:#11172a;color:#edf0ff;font-size:14px}.field small{display:block;color:#8590ae;font-size:11px;margin-top:7px;line-height:1.4}
+.primary{width:100%;margin-top:21px;border:0;border-radius:13px;padding:16px;background:linear-gradient(100deg,#7658f6,#3bbaaf);color:white;font-size:15px;font-weight:800;cursor:pointer}.primary:disabled{opacity:.55;cursor:wait}
+.progress{display:none;margin-top:17px;padding:18px;background:#101629;border:1px solid var(--line);border-radius:15px}.progresshead{display:flex;justify-content:space-between;gap:10px;font-size:13px;margin-bottom:12px}.percent{color:var(--cyan);font-weight:800}.track{height:10px;background:#2a3048;border-radius:99px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#8064ff,#3dd9c5);border-radius:99px;transition:width .2s}.status{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5;overflow-wrap:anywhere}.notice{margin-top:18px;padding:14px;border:1px solid #554b2d;background:#29251b;border-radius:13px;color:#d8c99f;font-size:12px;line-height:1.55}.notice b{color:#f4dfa0}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:17px}.feature{background:#171c2eaa;border:1px solid var(--line);border-radius:15px;padding:15px}.feature strong{display:block;font-size:13px;margin:8px 0 4px}.feature p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.footer{text-align:center;color:#75809e;font-size:11px;margin:26px 0 5px}
+@media(max-width:560px){body{padding:19px 13px}.options,.features{grid-template-columns:1fr}.urlbox{flex-wrap:wrap}.urlbox input{flex-basis:100%}.paste{padding:10px 13px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand"><div class="logo">↓</div>downly pro</div><div class="tag">DOWNLOAD MULTIPLATAFORMA</div></header>
+<section class="hero"><h1>Seus arquivos, <span>do seu jeito.</span></h1><p>Cole um link direto ou de compartilhamento. O aplicativo identifica a mídia e prepara o arquivo diretamente no seu celular.</p></section>
+<main class="card">
+<label class="label" for="url">Link do arquivo ou compartilhamento</label>
+<div class="urlbox"><input id="url" type="url" placeholder="Cole aqui o link do Drive, site ou arquivo..." autocomplete="url"><button class="paste" id="paste" type="button">Colar link</button></div>
+<div class="options">
+<div class="field"><label class="label" for="kind">Tipo de mídia</label><select id="kind"><option value="auto">Detectar automaticamente</option><option value="video">Vídeo</option><option value="image">Foto / imagem</option><option value="audio">Áudio</option></select><small>O servidor identifica o formato quando a plataforma fornece essa informação.</small></div>
+<div class="field"><label class="label" for="quality">Qualidade</label><select id="quality"><option value="best">Melhor disponível</option><option value="1080">Até 1080p</option><option value="720">Até 720p</option><option value="480">Até 480p</option><option value="360">Até 360p</option><option value="audio">Somente áudio</option></select><small>As opções dependem das versões disponibilizadas pela origem.</small></div>
+</div>
+<button class="primary" id="download">↓ &nbsp; Analisar link e baixar</button>
+<div class="progress" id="progress" aria-live="polite"><div class="progresshead"><span id="title">Preparando...</span><span class="percent" id="percent">0%</span></div><div class="track"><div class="bar" id="bar"></div></div><div class="status" id="status">Aguardando...</div></div>
+<div class="notice"><b>Importante:</b> o mecanismo de download é executado no próprio aparelho. A compatibilidade depende da plataforma, permissões e disponibilidade do extrator. Conteúdos privados, links expirados, páginas que exigem login/2FA ou serviços que bloqueiam extração podem não funcionar. Use apenas conteúdo que você tem direito ou autorização para baixar.</div>
+</main>
+<section class="features">
+<div class="feature"><div>🔗</div><strong>Links de compartilhamento</strong><p>Tenta resolver links compatíveis de Drive, páginas e redirecionamentos.</p></div>
+<div class="feature"><div>🎞️</div><strong>Qualidade disponível</strong><p>Escolha uma resolução máxima quando a plataforma oferecer várias versões.</p></div>
+<div class="feature"><div>📈</div><strong>Progresso real</strong><p>Acompanha o andamento informado pelo mecanismo de download.</p></div>
+</section><footer class="footer">Downly Pro • O servidor roda no seu computador. Não compartilhe links privados.</footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);let busy=false;
+function progress(state,pct,message){
+ $('progress').style.display='block';
+ $('title').textContent=state==='finished'?'Download concluído!':state==='error'?'Não foi possível concluir':state==='analyzing'?'Analisando link...':'Baixando mídia...';
+ $('status').textContent=message||'Processando...';
+ if(pct!==null && pct!==undefined){$('bar').style.width=Math.max(0,Math.min(100,pct))+'%';$('percent').textContent=Math.round(pct)+'%'}else{$('percent').textContent='…'}
+ if(state==='finished'||state==='error'){busy=false;$('download').disabled=false;$('download').textContent='↓  Analisar outro link'}
+}
+window.onNativeProgress=progress;
+window.onSharedLink=()=>{ $('progress').style.display='none'; };
+$('paste').onclick=()=>Downly.pasteFromClipboard();
+$('download').onclick=()=>{
+ const url=$('url').value.trim();if(!url){alert('Cole ou compartilhe um link primeiro.');return}
+ try{const u=new URL(url);if(!['http:','https:'].includes(u.protocol))throw 0}catch{alert('Informe um link HTTP ou HTTPS válido.');return}
+ if(busy)return;busy=true;$('download').disabled=true;$('download').textContent='Analisando...';
+ progress('analyzing',0,'O mecanismo de download está analisando o link no próprio celular.');
+ Downly.startDownload(url,$('quality').value);
+};
+</script></body></html>
